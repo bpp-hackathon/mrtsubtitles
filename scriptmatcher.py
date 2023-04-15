@@ -10,7 +10,7 @@ def script_prepare(scriptname):
             if not line:
                 continue
             script.append(line)
-            keywords.append([word for word in line.split(" ") if len(word)>=4])
+            keywords.append([word.strip("\"?,._-") for word in line.split(" ") if len(word)>=4])
     return script,keywords
 
 def jaccard_similarity(x,y):
@@ -21,7 +21,7 @@ def jaccard_similarity(x,y):
 
 def matchscore(x,match,keywords,lastmatch):
     jaccard = jaccard_similarity(keywords[x],match)
-    bias = 1/(1.5**(abs(lastmatch+1-x)+2))
+    bias = math.e**(-1.5*(x/float(len(keywords)))**2)*0.3
     if abs(x-lastmatch<3):
         print(f"  {x}: {jaccard}+{bias}")
     return jaccard+bias
@@ -38,7 +38,7 @@ def main():
         if not words_filtered:
             continue
         matchline = max(range(len(script)),key=lambda x:matchscore(x,words_filtered,keywords,lastmatch))
-        if matchline!=lastmatch and matchscore(matchline,words_filtered,keywords,lastmatch)>0.6:
+        if matchline!=lastmatch and matchscore(matchline,words_filtered,keywords,lastmatch)>0.5:
             print(script[matchline])
             lastmatch = matchline
 
