@@ -2,23 +2,23 @@ import sys
 import math
 import re
 
+word_length_threshold=4
+
 def script_prepare(scriptname):
     script = []
     keywords = []
     with open(scriptname) as scriptfile:
-        for line in re.split("(?=[!?.:,])",scriptfile.read().replace("\n"," ")):
+        for i,line in enumerate(scriptfile):
             line = line.strip()
             if not line:
                 continue
             script.append(line)
-            keywords.append([word.strip("\"?,._-") for word in line.split(" ") if len(word)>=4])
+            for keyword in [word.strip("\"?,._-") for word in line.split(" ") if len(word)>=word_length_threshold]:
+                keywords.append((i,keyword))
     return script,keywords
 
-def jaccard_similarity(x,y):
-    """ returns the jaccard similarity between two lists """
-    intersection_cardinality = len(set.intersection(*[set(x), set(y)]))
-    union_cardinality = len(set.union(*[set(x), set(y)]))
-    return intersection_cardinality/float(union_cardinality)
+def hamming_distance(s1, s2):
+    return sum(c1 != c2 for c1, c2 in zip(s1, s2))
 
 def matchscore(x,match,keywords,lastmatch):
     jaccard = jaccard_similarity(keywords[x],match)
@@ -35,7 +35,7 @@ def main():
         words = line.strip().split(" ")
         if len(words)<4:
             continue
-        words_filtered = [word for word in words if len(word)>=3]
+        words_filtered = [word for word in words if len(word)>=word_length_threshold]
         if not words_filtered:
             continue
         matchline = max(range(len(script)),key=lambda x:matchscore(x,words_filtered,keywords,lastmatch))
