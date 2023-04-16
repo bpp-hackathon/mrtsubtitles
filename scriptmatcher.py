@@ -1,11 +1,12 @@
 import sys
 import math
+import re
 
 def script_prepare(scriptname):
     script = []
     keywords = []
     with open(scriptname) as scriptfile:
-        for line in scriptfile:
+        for line in re.split("(?=[!?.:,])",scriptfile.read().replace("\n"," ")):
             line = line.strip()
             if not line:
                 continue
