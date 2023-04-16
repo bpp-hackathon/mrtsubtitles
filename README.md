@@ -2,12 +2,12 @@
 mrtsubtitles aims to provide near real-time transcription and translation of spoken language with the focus on theater plays. However, it can be used in any context.
 
 ## Table of content
-- [Transcription and translation of scripted scenes](## Transcription and translation of scripted scenes)
-- [Transcription and translation of improvised scenes / freely spoken text](## Transcription and translation of improvised scenes)
-- [Representation of text to the audience](## Representation of text to the audience)
-- [Actor / object tracking](## Actor / object tracking)
-- [AR glasses](## AR glasses)
-- [Limitations](## Limitations)
+- [Transcription and translation of scripted scenes](##Transcription and translation of scripted scenes)
+- [Transcription and translation of improvised scenes / freely spoken text](##Transcription and translation of improvised scenes)
+- [Representation of text to the audience](##Representation of text to the audience)
+- [Actor / object tracking](##Actor / object tracking)
+- [AR glasses](##AR glasses)
+- [Limitations](##Limitations)
 
 ## Transcription and translation of scripted scenes
 ### How it works
@@ -50,7 +50,7 @@ print(translation)
 Whisper can be used as described above without running `scriptmatcher.py` in [test.sh](test.sh).
 
 ## Representation of text to the audience
-Thinking about how to provide the transcribed and translated text to the audience resulted in doing research in the field of object tracking and AR glasses.
+Thinking about how to provide the transcribed and translated text to the audience resulted in doing research in the field of [object tracking](##Actor / object tracking) and [AR glasses](##AR glasses).
 
 ## Actor / object tracking
 ### How it works
